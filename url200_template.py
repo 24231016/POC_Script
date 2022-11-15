@@ -39,8 +39,12 @@ def run():
     total = str(len(urls_data)) #進度條總數
     for urls in urls_data:
         sem.acquire()
-        url = urls.strip("\n") #POC網址
-        origin_url = urls.strip("\n") #原url
+        if urls.find('http'):
+            url = "http://" + urls.strip("\n") + "XXX" #POC網址
+            origin_url = "http://" + urls.strip("\n") #原url
+        else:
+            url = urls.strip("\n") + "XXX" #POC網址
+            origin_url = urls.strip("\n") #原url
         t1 = Thread(target=url200,args=(url,origin_url)) 
         t1.start()
         
